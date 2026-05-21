@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["catch-the-apple"]
+members = ["catch-the-apple", "shark"]
 [workspace.dependencies]
 image = {git = "https://github.com/image-rs/image", rev = "a973207", features = ["png"]}
 sdl3 = {git = "https://github.com/vhspace/sdl3-rs", rev = "61fe07c", features = ["build-from-source-static", "ash", "image", "ttf"]}
