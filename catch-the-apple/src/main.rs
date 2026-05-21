@@ -48,6 +48,10 @@ fn main() {
             }
         }
         cat_x += cat_speed;
+        if cat_x < 0 {cat_x = 0;}
+        else if cat_x > width as i32 - cat_surface.width() as i32 {
+            cat_x = width as i32 - cat_surface.width() as i32
+        }
         let cat_rect = Rect::new(cat_x, cat_y, cat_surface.width(), cat_surface.height());
         canvas.copy(&bg_img, None, None).unwrap();
         canvas.copy(&cat_img, None, cat_rect).unwrap();
