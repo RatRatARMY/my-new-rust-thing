@@ -2,7 +2,9 @@ use {
     sdl3::{
         pixels::Color,
         event::Event,
-        keyboard::Keycode
+        keyboard::Keycode,
+        image::LoadSurface,
+        surface::Surface
     },
     image::image_dimensions,
     std::{time::Duration, thread::sleep}
@@ -16,6 +18,9 @@ fn main() {
         .build()
         .unwrap();
     let mut canvas = window.into_canvas();
+    let texture_creator = canvas.texture_creator();
+    let bg_img = Surface::from_file("assets/bg_image.png").unwrap();
+    let spr_bg = texture_creator.create_texture_from_surface(&bg_img).unwrap();
     canvas.present();
     let mut events = sdl3_context.event_pump().unwrap();
     'game_loop: loop {
@@ -28,8 +33,7 @@ fn main() {
                 _ => {}
             }
         }
-        // Phần còn lại của game loop sẽ ở đây...
-
+        canvas.copy(&spr_bg, None, None).unwrap();
         canvas.present();
         sleep(Duration::new(0, 1_000_000_000 / 60));
     }
