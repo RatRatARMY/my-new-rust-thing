@@ -1,7 +1,6 @@
 use {
     image::image_dimensions,
     sdl3::{
-        pixels::Color,
         event::Event,
         keyboard::Keycode,
         surface::Surface,
