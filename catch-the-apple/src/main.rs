@@ -2,6 +2,7 @@ use rand::RngExt;
 use {
     rand::rng,
     sdl3::{
+        pixels::Color,
         event::Event,
         keyboard::Keycode,
         image::LoadSurface,
@@ -16,12 +17,14 @@ fn main() {
     let (width, height): (u32, u32) = image_dimensions("assets/bg_image.png").unwrap();
     let sdl3_context = sdl3::init().unwrap();
     let video_subsystem = sdl3_context.video().unwrap();
+    let ttf3_context = sdl3::ttf::init().unwrap();
     let window = video_subsystem.window("Catch the Apple", width, height)
         .position_centered()
         .build()
         .unwrap();
     let mut canvas = window.into_canvas();
     let texture_creator = canvas.texture_creator();
+    let main_font = ttf3_context.load_font("assets/ARIAL.TTF", 24f32).unwrap();
     let bg_img = texture_creator.create_texture_from_surface(Surface::from_file("assets/bg_image.png").unwrap()).unwrap();
     let cat_surface = Surface::from_file("assets/spr_cat.png").unwrap();
     let apple_surface = Surface::from_file("assets/spr_apple.png").unwrap();
@@ -84,6 +87,10 @@ fn main() {
                 canvas.copy(&cat_img, None, cat_rect).unwrap();
                 canvas.copy(&apple_img, None, apple_rect).unwrap();
             }
+            let score_render = main_font.render(&format!("Score: {}", score)).solid(Color::WHITE).unwrap();
+            let time_render = main_font.render(&format!("Time: {:.0}", time as f64 / 60f64)).solid(Color::WHITE).unwrap();
+            canvas.copy(&texture_creator.create_texture_from_surface(&score_render).unwrap(), None, Rect::new(0, 0, score_render.width(), score_render.height())).unwrap();
+            canvas.copy(&texture_creator.create_texture_from_surface(&time_render).unwrap(), None, Rect::new(0, 24, time_render.width(), time_render.height())).unwrap();
         }
         canvas.present();
         sleep(Duration::new(0, 1_000_000_000 / 60));
