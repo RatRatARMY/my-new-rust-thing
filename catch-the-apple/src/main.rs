@@ -65,6 +65,10 @@ fn main() {
         let apple_rect = Rect::new(apple_x, apple_y, apple_surface.width(), apple_surface.height());
         if !game_over {
             cat_x += cat_speed;
+            if cat_x < 0 {cat_x = 0;}
+            else if cat_x > width as i32 - cat_surface.width() as i32 {
+                cat_x = width as i32 - cat_surface.width() as i32;
+            }
             apple_y += apple_speed;
             let dx = cat_x as f64 - apple_x as f64;
             let dy = cat_y as f64 - apple_y as f64;
