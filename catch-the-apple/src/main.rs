@@ -1,6 +1,5 @@
-use rand::RngExt;
 use {
-    rand::rng,
+    rand::{rng, RngExt},
     sdl3::{
         pixels::Color,
         event::Event,
