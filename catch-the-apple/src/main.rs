@@ -1,6 +1,5 @@
 use {
     sdl3::{
-        pixels::Color,
         event::Event,
         keyboard::Keycode,
         image::LoadSurface,
